@@ -18,6 +18,13 @@ raw$Exited %>% table() %>% prop.table()
 raw %>% inspect_na()
 
 df <- raw %>% select(-CustomerId,-Surname) %>% view()
+# raw <- raw %>% select(-RowNumber,-CustomerId,-Surname,-Geography)
+# rownumber and geography variables also do not have any predictive power
+
+raw$Gender <- raw$Gender %>% 
+  factor(levels = c('Female','Male'),
+         labels = c(1,0))
+#gender variable needs to be factor as well for this model
 df %>% glimpse()
 df$Exited <- df$Exited %>% as.factor()
 df$HasCrCard <- df$HasCrCard %>% as.factor()
